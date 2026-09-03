@@ -7,8 +7,6 @@ const money = (n) =>
     ? "—"
     : Number(n).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 
-const short = (a) => (a ? `${a.slice(0, 4)}…${a.slice(-4)}` : "");
-
 async function loadJSON(path) {
   const res = await fetch(path);
   if (!res.ok) throw new Error(`failed ${path}`);
@@ -25,10 +23,7 @@ function renderProtocol(p) {
     ["Solana 30d", money(p.breakdown.fomoWallet.fees30dUsd), "fomo Wallet"],
     ["Perps 30d", money(p.breakdown.fomoPerps.fees30dUsd), "builder codes"],
   ]
-    .map(
-      ([k, v, s]) =>
-        `<div class="stat"><span>${k}</span><b>${v}</b><span>${s}</span></div>`
-    )
+    .map(([k, v, s]) => `<div class="stat"><span>${k}</span><b>${v}</b><span>${s}</span></div>`)
     .join("");
   document.getElementById("snap").textContent = `snapshot ${p.snapshotAt}`;
 }
@@ -44,44 +39,74 @@ function renderBands(sched) {
 
 function renderBoard(list) {
   document.getElementById("window-note").textContent = `${list.window}. Distinct senders: ${list.totals.distinctSenders.toLocaleString()}. Sum in window: ${money(list.totals.totalUsdc30d)}.`;
-  const body = list.rows
+  document.getElementById("board-body").innerHTML = list.rows
     .map((r) => {
       const sol = `https://solscan.io/account/${r.sender}`;
-      const xfer = `https://solscan.io/account/${r.sender}#transfers`;
       return `<tr>
         <td>#${r.rank}</td>
         <td class="addr"><a href="${sol}">${r.sender}</a></td>
         <td>${money(r.usdc)}</td>
         <td>${r.transfers.toLocaleString()}</td>
         <td>${r.pctOfTotal}%</td>
-        <td><a href="${xfer}">transfers</a></td>
+        <td><a href="${sol}#transfers">transfers</a></td>
       </tr>`;
     })
     .join("");
-  document.getElementById("board-body").innerHTML = body;
 }
 
-function lookup() {
-  const raw = document.getElementById("wallet").value.trim();
-  const out = document.getElementById("receipt");
-  if (!raw) {
-    out.textContent = "paste a Solana address";
-    return;
-  }
-  const url = `https://solscan.io/account/${raw}#transfers`;
-  const fee = `https://solscan.io/account/${FEE_WALLET}`;
-  out.textContent = `FOMO SHAME SLIP
-wallet     ${raw}
-short      ${short(raw)}
-look for   USDC (${USDC})
-paid to    ${FEE_WALLET}
+function slipText(info) {
+  const wallet = info.solana || "not indexed";
+  return `FOMO SHAME SLIP
+handle     ${info.handle || "(wallet only)"}
+name       ${info.displayName || "—"}
+followers  ${info.followers != null ? info.followers.toLocaleString() : "—"}
+fomo vol   ${info.totalVolume ? money(Number(info.totalVolume)) : "—"}
+solana     ${wallet}
+evm        ${info.evm || "—"}
+look for   USDC → ${FEE_WALLET}
 ata        ${FEE_ATA}
 
-Open your transfers and filter destination = fee wallet.
-This page does not scrape private FOMO profiles.
+${wallet !== "not indexed" ? `https://solscan.io/account/${wallet}#transfers` : ""}
+${info.profile || ""}`;
+}
 
-${url}
-fee wallet ${fee}`;
+async function lookup() {
+  const raw = document.getElementById("wallet").value.trim();
+  const out = document.getElementById("receipt");
+  const card = document.getElementById("who");
+  if (!raw) {
+    out.textContent = "paste a FOMO username, profile URL, or Solana address";
+    return;
+  }
+  out.textContent = "resolving handle…";
+  card.hidden = true;
+  try {
+    const r = await fetch(`/api/lookup?q=${encodeURIComponent(raw)}`);
+    const data = await r.json();
+    if (!r.ok) {
+      out.textContent = `not found: ${data.detail || data.error || "unknown"}\ntry a Solana address instead, or a handle already in the public index.`;
+      return;
+    }
+    out.textContent = slipText(data);
+    if (data.handle) {
+      card.hidden = false;
+      document.getElementById("who-name").textContent = data.displayName || data.handle;
+      document.getElementById("who-handle").textContent = `@${data.handle}`;
+      document.getElementById("who-link").href = data.profile;
+      const av = document.getElementById("who-av");
+      if (data.avatar) {
+        av.src = data.avatar;
+        av.hidden = false;
+      } else {
+        av.hidden = true;
+      }
+    }
+    const params = new URLSearchParams(location.search);
+    params.set("q", data.handle || raw);
+    history.replaceState(null, "", `?${params.toString()}`);
+  } catch (err) {
+    out.textContent = `lookup failed (${err.message}). Deploy on Vercel so /api/lookup exists.`;
+  }
 }
 
 async function main() {
@@ -97,6 +122,11 @@ async function main() {
   document.getElementById("wallet").addEventListener("keydown", (e) => {
     if (e.key === "Enter") lookup();
   });
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) {
+    document.getElementById("wallet").value = q;
+    lookup();
+  }
 }
 
 main().catch((err) => {

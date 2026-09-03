@@ -11,20 +11,28 @@
   </head>
   <body>
     <div class="wrap">
-      <div class="eyebrow">public chain · not financial advice · roast optional</div>
+      <div class="eyebrow">public chain · search by FOMO username · roast optional</div>
       <h1>FOMO<br />SHAME BOARD</h1>
       <p class="lede">
-        How much the fomo.family app has taken in trading fees, the Solana size bands that make a $10 ticket feel like 2%,
-        and the fattest USDC pipes into the fee wallet. Addresses only. No login.
+        Type a fomo.family username (or profile URL). We resolve the hidden Solana wallet from a public index,
+        then point you at USDC paid to FOMO’s fee wallet.
       </p>
       <div id="snap" class="eyebrow"></div>
       <div class="stats" id="stats"></div>
 
       <div class="panel">
-        <label for="wallet">your Solana wallet — generate a receipt link</label>
-        <input id="wallet" placeholder="paste address…" spellcheck="false" />
-        <p><button id="go" type="button">print slip</button></p>
-        <pre class="receipt" id="receipt">waiting for a wallet</pre>
+        <label for="wallet">FOMO username, profile URL, or Solana address</label>
+        <input id="wallet" placeholder="orangie  ·  @Quanterty  ·  fomo.family/profile/…" spellcheck="false" />
+        <p><button id="go" type="button">look up</button></p>
+        <div id="who" class="who" hidden>
+          <img id="who-av" alt="" hidden />
+          <div>
+            <div id="who-name"></div>
+            <div id="who-handle"></div>
+            <div><a id="who-link" href="#" target="_blank" rel="noreferrer">open fomo profile</a></div>
+          </div>
+        </div>
+        <pre class="receipt" id="receipt">try: orangie, Quanterty, cryptolyxe</pre>
       </div>
 
       <div class="panel">
@@ -36,9 +44,7 @@
       <div class="panel">
         <h2>fee-wallet concentration</h2>
         <p class="warn" id="window-note"></p>
-        <p class="warn">
-          High transfer counts usually mean routers or hop accounts, not a single retail martyr.
-        </p>
+        <p class="warn">High transfer counts usually mean routers or hop accounts, not a single retail martyr.</p>
         <table>
           <thead>
             <tr>
@@ -55,10 +61,10 @@
       </div>
 
       <footer>
-        Fee wallet <code>R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX</code> ·
-        USDC ATA <code>HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq</code><br />
-        Protocol totals from DefiLlama. Sender ranks from Dune query 7900900. Schedule from public help-center writeups.
-        This is not affiliated with FOMO Labs.
+        Handle resolution via the public FomoScan get-user index (same source as fomowalletfinder).
+        Not every username is indexed yet — those come back as not found.<br />
+        Fee wallet <code>R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX</code>
+        · unofficial, not affiliated with FOMO Labs.
       </footer>
     </div>
     <script src="app.js"></script>

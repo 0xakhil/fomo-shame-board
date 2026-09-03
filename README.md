@@ -1,17 +1,18 @@
 # FOMO shame board
 
-Public, wallet-first board for **fomo.family** trading fees.
+Public board for **fomo.family** trading fees. Search by **FOMO username**, profile URL, or Solana address.
 
 Repo: https://github.com/0xakhil/fomo-shame-board
 
 ## What this is
 
+- Search `orangie`, `@Quanterty`, or `https://fomo.family/profile/cryptolyxe`
+- `/api/lookup` resolves the handle to Solana + EVM wallets via the public FomoScan `get-user` index
 - Protocol fee totals from [DefiLlama](https://defillama.com/fees/fomo)
-- Solana ticket-size fee bands (why a $10 trade is not 0.50%)
-- Largest USDC senders into the known Solana fee wallet (Dune snapshot)
-- A receipt slip that points any pasted wallet at Solscan transfers
+- Solana ticket-size fee bands
+- Largest USDC senders into the fee wallet (Dune snapshot)
 
-It does **not** scrape private FOMO sessions or attach handles unless you do that yourself with community indexes.
+Handles that were never indexed return 404. We do not log into FOMO.
 
 ## On-chain constants (verified 2026-09-04)
 
@@ -34,28 +35,13 @@ Pulled 2026-09-04 from Llama:
 | fomo Wallet (mostly Solana) | $582,965 | $6,272,442 | $17,253,645 | $46,082,189 |
 | fomo Perps | $20,536 | $207,288 | $592,728 | $921,720 |
 
-Top senders in `data/top-senders-30d.json` are from [Dune 7900900](https://dune.com/queries/7900900) (30d window around mid-2026, ~100,879 distinct senders, ~$3.14M USDC in that query's window). The #1–5 wallets each have 30k+ transfers — treat them as flow hubs, not "one guy."
-
 ## Run it
 
-Static files. Open `index.html` or serve the folder:
+Vercel picks up `api/lookup.js` as a serverless function. After deploy:
 
-```bash
-python3 -m http.server 4173
-```
+`https://YOUR-APP.vercel.app/?q=orangie`
 
-## How to score one wallet
-
-Sum USDC transfers from that wallet (or its USDC ATA) to `R4rNJH…` / `HrTf9C…`.
-
-Production lookup wants an indexer (Helius `getTransfersByAddress`, Bitquery, Solscan Pro, or Dune). Public RPC pagination will choke on copy-traders.
-
-## Not included (yet)
-
-- Live per-wallet summation
-- FOMO handle resolution
-- EVM / Relay / perps personal receipts
-- Token-tax and AMM fees that are not FOMO's cut
+Local static preview will load the board but handle search needs the API route.
 
 ## License
 
