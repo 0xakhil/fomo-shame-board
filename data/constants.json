@@ -1,0 +1,22 @@
+{
+  "protocol": "fomo",
+  "site": "https://fomo.family",
+  "twitter": "fomo",
+  "chains": ["Solana", "Hyperliquid L1"],
+  "solana": {
+    "feeWallet": "R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX",
+    "usdcFeeAta": "HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq",
+    "usdcMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "cosigner": "AgmLJBMDCqWynYnQiPCuj9ewsNNsBJXyzoUhD9LJzN51",
+    "verifiedAt": "2026-09-04T03:50:00Z",
+    "feeAtaUsdcBalanceAtVerify": 228845.350265,
+    "notes": "DefiLlama Solana adapter sums USDC received by feeWallet. Cosigner appears on app-routed swaps."
+  },
+  "explorers": {
+    "feeWallet": "https://solscan.io/account/R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX",
+    "feeAta": "https://solscan.io/account/HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq",
+    "defillama": "https://defillama.com/fees/fomo",
+    "adapter": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/fomo/index.ts",
+    "duneConcentration": "https://dune.com/queries/7900900"
+  }
+}

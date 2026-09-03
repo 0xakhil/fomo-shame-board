@@ -1,0 +1,48 @@
+{
+  "title": "USDC sent to FOMO Solana fee wallet",
+  "window": "trailing 30 days as of Dune query 7900900 (published ~2026-07-07, last run ~1 month later)",
+  "source": "https://dune.com/queries/7900900",
+  "method": "tokens_solana.transfers where mint=USDC and to_owner=R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX",
+  "warning": "Highest-count senders are often routers, hop wallets, or app-side accounts — not automatically 'a person who got wrecked'. Treat ranks as fee-flow concentration, not a roast of a handle.",
+  "totals": {
+    "distinctSenders": 100879,
+    "totalUsdc30d": 3141174
+  },
+  "rows": [
+    {
+      "rank": 1,
+      "sender": "ARu4n5mFdZogZAravu7CcizaojWnS6oqka37gdLT5SZn",
+      "usdc": 138180.044595,
+      "transfers": 41952,
+      "pctOfTotal": 4.4
+    },
+    {
+      "rank": 2,
+      "sender": "4JVzaxyMKvhZZTMdatchvCNUPeNn7LHiKeRZtcskuaHB",
+      "usdc": 101064.313909,
+      "transfers": 34430,
+      "pctOfTotal": 3.22
+    },
+    {
+      "rank": 3,
+      "sender": "CjmRBrkTSCzjKoGUbWbkfiZ2bNc8pf23MBS7S9LSKwDe",
+      "usdc": 100316.77121,
+      "transfers": 34338,
+      "pctOfTotal": 3.19
+    },
+    {
+      "rank": 4,
+      "sender": "6AKjSK5eEdn6F7dAv1yRtPPUziqJLvkqGGk94nfhioQa",
+      "usdc": 99037.52963,
+      "transfers": 34017,
+      "pctOfTotal": 3.15
+    },
+    {
+      "rank": 5,
+      "sender": "BhVHbM8cn9ojSi2VS1HTCQzDM1hspkviLFDvF7quv3kR",
+      "usdc": 98875.282886,
+      "transfers": 34294,
+      "pctOfTotal": 3.15
+    }
+  ]
+}

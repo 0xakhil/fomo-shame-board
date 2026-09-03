@@ -1,0 +1,25 @@
+{
+  "source": "fomo help center via independent writeups (help.fomo.family), last checked by FomoAppGuide 2026-08-20",
+  "disclaimer": "FOMO's advertised headline is 0.50% (0.45% with referral). Effective rate on Solana depends on ticket size.",
+  "referralDiscount": {
+    "standardBps": 50,
+    "withReferralBps": 45,
+    "note": "10% off the 0.50% headline = 0.45%"
+  },
+  "solanaBands": [
+    { "minUsd": 0, "maxUsd": 5, "fee": "flat 0.10 USDC", "example": { "size": 2, "fee": 0.10, "effectivePct": 5.0 } },
+    { "minUsd": 5, "maxUsd": 47.5, "fee": "2% of order", "example": { "size": 10, "fee": 0.20, "effectivePct": 2.0 } },
+    { "minUsd": 47.5, "maxUsd": 190, "fee": "flat 0.95 USDC", "example": { "size": 50, "fee": 0.95, "effectivePct": 1.9 } },
+    { "minUsd": 190, "maxUsd": null, "fee": "0.50% of order", "example": { "size": 500, "fee": 2.50, "effectivePct": 0.5 } }
+  ],
+  "otherChains": {
+    "Base": "0.50% per trade",
+    "BNB Chain": "0.50% per trade",
+    "Monad": "0.50% per trade",
+    "Robinhood Chain": "0.50% per trade",
+    "Ethereum": "0.50% plus network fees"
+  },
+  "majors": "Select major tokens: floor ~0.50 USDC under $1,000, then 0.05% at $1,000+",
+  "perps": "fomo builder fee ~0.05% open and close, plus Hyperliquid venue fee",
+  "gas": "App sponsors gas / priority / rent on Solana, Base, BNB, Monad, Robinhood Chain"
+}

@@ -1,0 +1,39 @@
+{
+  "snapshotAt": "2026-09-04T03:53:00+05:30",
+  "source": "https://api.llama.fi/summary/fees/fomo",
+  "combined": {
+    "name": "fomo",
+    "fees24hUsd": 603501,
+    "fees7dUsd": 6479730,
+    "fees30dUsd": 17846373,
+    "feesAllTimeUsd": 47003909,
+    "change1dPct": -59.73,
+    "chains": ["Solana", "Hyperliquid L1"]
+  },
+  "breakdown": {
+    "fomoWallet": {
+      "name": "fomo Wallet",
+      "source": "https://api.llama.fi/summary/fees/fomo-wallet",
+      "fees24hUsd": 582965,
+      "fees7dUsd": 6272442,
+      "fees30dUsd": 17253645,
+      "feesAllTimeUsd": 46082189,
+      "change1dPct": -60.17,
+      "method": "USDC inflows to Solana fee wallet R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX plus off-chain Relay fees from Dune"
+    },
+    "fomoPerps": {
+      "name": "fomo Perps",
+      "source": "https://api.llama.fi/summary/fees/fomo-perps",
+      "fees24hUsd": 20536,
+      "fees7dUsd": 207288,
+      "fees30dUsd": 592728,
+      "feesAllTimeUsd": 921720,
+      "method": "Hyperliquid builder-code fees"
+    }
+  },
+  "methodology": {
+    "fees": "Trading fees paid by users while using fomo app.",
+    "revenue": "Fees retained by the app after referral payouts (Llama treats most of the Solana take as protocol revenue).",
+    "adapter": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/fomo/index.ts"
+  }
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FOMO shame board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="eyebrow">public chain · not financial advice · roast optional</div>
+      <h1>FOMO<br />SHAME BOARD</h1>
+      <p class="lede">
+        How much the fomo.family app has taken in trading fees, the Solana size bands that make a $10 ticket feel like 2%,
+        and the fattest USDC pipes into the fee wallet. Addresses only. No login.
+      </p>
+      <div id="snap" class="eyebrow"></div>
+      <div class="stats" id="stats"></div>
+
+      <div class="panel">
+        <label for="wallet">your Solana wallet — generate a receipt link</label>
+        <input id="wallet" placeholder="paste address…" spellcheck="false" />
+        <p><button id="go" type="button">print slip</button></p>
+        <pre class="receipt" id="receipt">waiting for a wallet</pre>
+      </div>
+
+      <div class="panel">
+        <h2>Solana fee bands</h2>
+        <p class="lede">Headline is 0.50%. Most meme tickets never see it.</p>
+        <div class="bands" id="bands"></div>
+      </div>
+
+      <div class="panel">
+        <h2>fee-wallet concentration</h2>
+        <p class="warn" id="window-note"></p>
+        <p class="warn">
+          High transfer counts usually mean routers or hop accounts, not a single retail martyr.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>sender</th>
+              <th>USDC in</th>
+              <th>transfers</th>
+              <th>share</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="board-body"></tbody>
+        </table>
+      </div>
+
+      <footer>
+        Fee wallet <code>R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX</code> ·
+        USDC ATA <code>HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq</code><br />
+        Protocol totals from DefiLlama. Sender ranks from Dune query 7900900. Schedule from public help-center writeups.
+        This is not affiliated with FOMO Labs.
+      </footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
